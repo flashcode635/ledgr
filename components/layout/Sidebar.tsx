@@ -15,10 +15,10 @@ import {
   X,
   Wallet,
 } from "lucide-react";
+import Image from "next/image";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
 import image from "@/public/logo.png";
-import Image from "next/image";
 import { Button } from "@/components/ui/buttons";
 
 export default function Sidebar() {

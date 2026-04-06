@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { Shield, Eye, ArrowRight, Wallet } from "lucide-react";
 import Image from "next/image";
-import image from "@/public/image.png";
+import image from "@/public/logo.png";
 
 export default function Home() {
   return (

@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
-import image from "@/public/image.png";
+import image from "@/public/logo.png";
 import Image from "next/image";
 
 export default function Sidebar() {

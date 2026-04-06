@@ -9,7 +9,7 @@ import image from "@/public/image.png";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-slate-950 flex flex-col">
+    <div className="min-h-screen bg-linear-to-br from-black via-slate-900 to-slate-950 flex flex-col">
       {/* Header */}
       <header className="px-6 py-8 flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -41,16 +41,16 @@ export default function Home() {
             {/* Admin Card */}
             <Link
               href="/admin/dashboard"
-              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30 hover:border-violet-400/60 transition-all duration-300 p-8 hover:shadow-2xl hover:shadow-violet-600/30"
+              className="group relative overflow-hidden rounded-2xl bg-linear-to-br from-violet-600/20 to-purple-600/20 border border-violet-500/30 hover:border-violet-400/60 transition-all duration-300 p-8 hover:shadow-2xl hover:shadow-violet-600/30"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-br from-violet-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative">
                 <div className="w-14 h-14 rounded-xl bg-linear-to-br from-violet-500 to-purple-600 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-violet-500/50 transition-all">
                   <Shield className="w-7 h-7 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-3">Admin</h2>
                 <p className="text-slate-300 mb-6">
-                  Full access to manage transactions, view insights, and control the system
+                  Full access to manage transactions, view insights, and control the system.
                 </p>
                 <div className="flex items-center text-violet-400 group-hover:text-violet-300 transition-colors">
                   <span>Enter as Admin</span>
@@ -62,16 +62,16 @@ export default function Home() {
             {/* User Card */}
             <Link
               href="/user/dashboard"
-              className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 hover:border-blue-400/60 transition-all duration-300 p-8 hover:shadow-2xl hover:shadow-blue-600/30"
+              className="group relative overflow-hidden rounded-2xl bg-linear-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 hover:border-blue-400/60 transition-all duration-300 p-8 hover:shadow-2xl hover:shadow-blue-600/30"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative">
                 <div className="w-14 h-14 rounded-xl bg-linear-to-br from-blue-500 to-cyan-600 flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-blue-500/50 transition-all">
                   <Eye className="w-7 h-7 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-white mb-3">Viewer</h2>
                 <p className="text-slate-300 mb-6">
-                  View your transactions, analyze insights, and track your spending
+                  View your transactions, analyze the  insights, and track your overall spendings.
                 </p>
                 <div className="flex items-center text-blue-400 group-hover:text-blue-300 transition-colors">
                   <span>Enter as Viewer</span>

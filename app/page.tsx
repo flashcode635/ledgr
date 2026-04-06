@@ -17,44 +17,11 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/buttons";
 import { useEffect, useRef, useState } from "react";
+import { useCounter } from "@/hooks/useCounter";
 
-/* ──────────────────────────────────────────────
-   Animated counter hook
-   ────────────────────────────────────────────── */
-function useCounter(end: number, duration = 2000) {
-  const [value, setValue] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          let start = 0;
-          const step = end / (duration / 16);
-          const timer = setInterval(() => {
-            start += step;
-            if (start >= end) {
-              setValue(end);
-              clearInterval(timer);
-            } else {
-              setValue(Math.floor(start));
-            }
-          }, 16);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [end, duration]);
-
-  return { value, ref };
-}
-
-/* ──────────────────────────────────────────────
+/* 
    Landing Page
-   ────────────────────────────────────────────── */
+    */
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -70,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-cream text-slate-900" style={{ fontFamily: "var(--font-inter, 'Inter', system-ui, sans-serif)" }}>
-      {/* ────────── Navigation ────────── */}
+      {/*  Navigation  */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
@@ -128,9 +95,9 @@ export default function Home() {
             aria-label="Toggle menu"
           >
             <div className="w-5 h-4 flex flex-col justify-between">
-              <span className={`block h-0.5 bg-slate-700 transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+              <span className={`block h-0.5 bg-slate-700 transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-1.75" : ""}`} />
               <span className={`block h-0.5 bg-slate-700 transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-0.5 bg-slate-700 transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+              <span className={`block h-0.5 bg-slate-700 transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-1.75" : ""}`} />
             </div>
           </button>
         </nav>
@@ -161,11 +128,11 @@ export default function Home() {
         )}
       </header>
 
-      {/* ────────── Hero Section ────────── */}
+      {/*  Hero Section  */}
       <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
         {/* Subtle background accents */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-linear-to-bl from-violet-100/60 via-purple-50/30 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-linear-to-tr from-blue-50/40 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-150 h-150 bg-linear-to-bl from-violet-100/60 via-purple-50/30 to-transparent rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-100 h-100 bg-linear-to-tr from-blue-50/40 to-transparent rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -235,7 +202,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ────────── Curated Intelligence ────────── */}
+      {/*  Curated Intelligence  */}
       <section className="py-20 md:py-28 bg-slate-50/60">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="max-w-2xl mb-14">
@@ -353,7 +320,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ────────── Trust Badges ────────── */}
+      {/*  Trust Badges  */}
       <section className="py-20 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="grid sm:grid-cols-3 gap-10 lg:gap-16 text-center">
@@ -411,7 +378,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ────────── CTA Banner ────────── */}
+      {/*  CTA Banner  */}
       <section className="py-20 md:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="relative bg-linear-to-br from-violet-600 via-purple-600 to-indigo-700 rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center text-white overflow-hidden">
@@ -445,7 +412,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ────────── Footer ────────── */}
+      {/*  Footer  */}
       <footer className="border-t border-slate-100 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-3">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -484,7 +451,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ────────── Global Inline Styles for Animations ────────── */}
+      {/*  Global Inline Styles for Animations  */}
       <style jsx global>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }

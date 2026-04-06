@@ -65,7 +65,7 @@ gsap.fromTo(
   return (
     <div
       ref={cardRef}
-      className="relative overflow-hidden rounded-2xl p-6 bg-slate-900/60 border border-white/8 backdrop-blur-sm hover:border-white/15 transition-all duration-300 group cursor-default"
+      className="relative overflow-hidden rounded-2xl p-6 surface border border-(--card-border) backdrop-blur-sm hover:border-white/15 transition-all duration-300 group cursor-default"
     >
       {/* Gradient glow */}
       <div
@@ -85,10 +85,10 @@ gsap.fromTo(
         {icon}
       </div>
 
-      <p className="text-sm font-medium text-slate-400 mb-1">{title}</p>
+      <p className="text-sm font-medium text-muted-fg mb-1">{title}</p>
       <span
         ref={valueRef}
-        className="text-2xl font-bold text-white block"
+        className="text-2xl font-bold text-foreground block"
       >
         {formatCurrency(value)}
       </span>

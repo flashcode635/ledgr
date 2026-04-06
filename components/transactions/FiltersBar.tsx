@@ -6,10 +6,10 @@ import { Category } from "@/types/types";
 import { Search, X } from "lucide-react";
 
 const inputClass =
-  "bg-slate-800/60 border border-white/10 rounded-xl px-3.5 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-violet-500/60 transition-all";
+  "bg-[color:var(--muted)] border border-[color:var(--card-border)] rounded-xl px-3.5 py-2 text-sm text-[color:var(--foreground)] placeholder:text-[color:var(--muted-fg)] focus:outline-none focus:border-violet-500/60 transition-all";
 
 const selectClass =
-  "bg-slate-800/60 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500/60 transition-all cursor-pointer";
+  "bg-[color:var(--muted)] border border-[color:var(--card-border)] rounded-xl px-3 py-2 text-sm text-[color:var(--foreground)] focus:outline-none focus:border-violet-500/60 transition-all cursor-pointer";
 
 export default function FiltersBar() {
   const { filters, setFilters, transactions } = useStore();

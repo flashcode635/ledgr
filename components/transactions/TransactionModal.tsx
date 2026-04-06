@@ -14,9 +14,9 @@ interface TransactionModalProps {
 }
 
 const inputClass =
-  "w-full bg-slate-800/60 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 transition-all";
+  "w-full bg-[color:var(--muted)] border border-[color:var(--card-border)] rounded-xl px-4 py-2.5 text-sm text-[color:var(--foreground)] placeholder:text-[color:var(--muted-fg)] focus:outline-none focus:border-violet-500/60 focus:ring-1 focus:ring-violet-500/30 transition-all";
 
-const labelClass = "block text-sm font-medium text-slate-400 mb-1.5";
+const labelClass = "block text-sm font-medium text-[color:var(--muted-fg)] mb-1.5";
 
 export default function TransactionModal({
   open,
@@ -82,50 +82,51 @@ export default function TransactionModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/90 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-slate-900 border border-white/10 rounded-2xl shadow-2xl p-6 z-10 animate-in slide-in-from-bottom-4 duration-300">
+      <div className="relative w-full max-w-md bg-card border border-(--card-border) rounded-2xl shadow-2xl py-4 px-6 p z-10 animate-in slide-in-from-bottom-4 duration-300">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-2">
           <div>
-            <h2 className="text-lg font-bold text-white">
+            <h2 className="text-lg font-bold text-foreground">
               {isEditing ? "Edit Transaction" : "Add Transaction"}
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-muted-fg mt-0.5">
               {isEditing ? "Update the transaction details" : "Record a new transaction"}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+            className="p-2 rounded-xl text-slate-400 hover:text-white
+             hover:bg-white/10 transition-all"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-2">
           {/* Type toggle */}
           <div>
             <label className={labelClass}>Type</label>
-            <div className="flex gap-2 p-1 bg-slate-800/60 rounded-xl border border-white/10">
+            <div className="flex gap-2 p-1 bg-(--option) rounded-xl border border-white/10">
               {(["expense", "income"] as TransactionType[]).map((t) => (
                 <button
                   key={t}
                   type="button"
                   onClick={() => handleTypeChange(t)}
                   className={cn(
-                    "flex-1 py-2 px-4 rounded-lg text-sm font-medium capitalize transition-all",
+                    "flex-1 py-1 px-4 rounded-lg text-sm font-medium capitalize transition-all",
                     form.type === t
                       ? t === "income"
                         ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                        : "bg-violet-500/20 text-violet-300 border border-violet-500/30"
-                      : "text-slate-400 hover:text-slate-300"
+                        : "bg-violet-500/20 text-(--income-text) border border-violet-500/30"
+                      : "text-foreground hover:bg-(--frg-hover) "
                   )}
                 >
                   {t}
@@ -219,7 +220,9 @@ export default function TransactionModal({
           {/* Submit */}
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold transition-all duration-200 shadow-lg shadow-violet-600/25 hover:shadow-violet-500/40 active:scale-95"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
+             bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold 
+             transition-all             duration-200 shadow-lg shadow-violet-600/25 hover:shadow-violet-500/40 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             {isEditing ? "Save Changes" : "Add Transaction"}

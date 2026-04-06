@@ -1,25 +1,29 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Bell, User, Shield, Eye } from "lucide-react";
+import { Bell, User, Shield, Eye, Sun, Moon } from "lucide-react";
 import { useStore } from "@/store/useStore";
-
-const PAGE_TITLES: Record<string, string> = {
-  "/": "Dashboard",
-  "/transactions": "Transactions",
-  "/insights": "Insights",
-};
 
 export default function Topbar() {
   const pathname = usePathname();
-  const { role } = useStore();
-  const title = PAGE_TITLES[pathname] ?? "Ledgr";
+  const { role, theme, setTheme } = useStore();
+  const title =
+    pathname === "/"
+      ? "Home"
+      : pathname.endsWith("/transactions")
+      ? "Transactions"
+      : pathname.endsWith("/insights")
+      ? "Insights"
+      : pathname.endsWith("/dashboard") || pathname === "/admin" || pathname === "/user"
+      ? "Dashboard"
+      : "Ledgr";
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
 
   return (
-    <header className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-slate-950/80 backdrop-blur-xl border-b border-white/8">
+    <header className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-(--card)/95 backdrop-blur-xl border-b border-(--card-border)">
       <div>
-        <h1 className="text-xl font-bold text-white">{title}</h1>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <h1 className="text-xl font-bold text-foreground">{title}</h1>
+        <p className="text-xs text-muted-fg mt-0.5">
           {new Date().toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
@@ -45,6 +49,19 @@ export default function Topbar() {
           )}
           {role}
         </div>
+
+        {/* Theme switch */}
+        <button
+          onClick={toggleTheme}
+          title="Toggle theme"
+          className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all"
+        >
+          {theme === "dark" ? (
+            <Sun className="w-4.5 h-4.5" />
+          ) : (
+            <Moon className="w-4.5 h-4.5" />
+          )}
+        </button>
 
         {/* Notification bell */}
         <button className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all">

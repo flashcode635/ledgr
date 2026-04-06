@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -17,33 +17,47 @@ import {
 } from "lucide-react";
 import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/transactions", label: "Transactions", icon: ArrowLeftRight },
-  { href: "/insights", label: "Insights", icon: BarChart3 },
-];
+import image from "@/public/image.png";
+import Image from "next/image";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { role, setRole, theme, setTheme } = useStore();
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Extract base path from current pathname, not from role state
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const basePath = (pathSegments[0] === "admin" || pathSegments[0] === "user") ? `/${pathSegments[0]}` : (role === "Admin" ? "/admin" : "/user");
+  const currentSection = pathSegments[1] || "dashboard";
+  const navLinks = [
+    { href: `${basePath}/dashboard`, label: "Dashboard", icon: LayoutDashboard },
+    { href: `${basePath}/transactions`, label: "Transactions", icon: ArrowLeftRight },
+    { href: `${basePath}/insights`, label: "Insights", icon: BarChart3 },
+  ];
+
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
-  const toggleRole = () => setRole(role === "Admin" ? "Viewer" : "Admin");
+  const toggleRole = () => {
+    const nextRole = role === "Admin" ? "Viewer" : "Admin";
+    setRole(nextRole);
+    const nextRoute = nextRole === "Admin" ? "/admin" : "/user";
+    const section = currentSection === "admin" || currentSection === "user" ? "dashboard" : currentSection;
+    router.push(`${nextRoute}/${section}`);
+  };
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-6 border-b border-white/10">
-        <div className="w-9 h-9 rounded-xl bg-linear-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-500/30">
-          <Wallet className="w-5 h-5 text-white" />
+      <div className="flex items-center gap-3 px-6 py-5.25 border-b border-white/10 bg-background">
+        <div className="w-9 h-9 p-1 rounded-xl bg-linear-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-500/30">
+
+          <Image src={image} alt="description" style={{ objectFit: 'fill', borderRadius: "12px" }} />
         </div>
-        <span className="text-xl font-bold tracking-tight text-white">Ledgr</span>
+        <span className="text-xl font-bold tracking-tight text-foreground">Ledgr</span>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-6 space-y-1">
+      <nav className="flex-1 px-3 py-6 space-y-1 bg-background">
         {navLinks.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
           return (
@@ -71,7 +85,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Controls */}
-      <div className="px-3 py-5 border-t border-white/10 space-y-2">
+      <div className="px-3 py-5 border-t border-white/10 space-y-2 bg-background">
         {/* Role switcher */}
         <button
           onClick={toggleRole}
@@ -83,7 +97,7 @@ export default function Sidebar() {
             ) : (
               <Eye className="w-4 h-4 text-slate-400" />
             )}
-            <span className="text-sm font-medium text-slate-300">{role}</span>
+            <span className="text-sm font-bold text-foreground">{role}</span>
           </div>
           <span className="text-xs text-slate-500 group-hover:text-slate-400 transition-colors">
             Switch
@@ -100,7 +114,7 @@ export default function Sidebar() {
           ) : (
             <Moon className="w-4 h-4 text-slate-400" />
           )}
-          <span className="text-sm font-medium text-slate-300">
+          <span className="text-sm font-bold text-foreground">
             {theme === "dark" ? "Light Mode" : "Dark Mode"}
           </span>
         </button>
@@ -111,12 +125,12 @@ export default function Sidebar() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 h-screen sticky top-0 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 shrink-0 z-30">
+      <aside className="hidden lg:flex flex-col w-64 h-screen sticky top-0 bg-(--card)/95 backdrop-blur-xl border-r border-(--card-border) shrink-0 z-30">
         <SidebarContent />
       </aside>
 
       {/* Tablet Sidebar */}
-      <aside className="hidden md:flex lg:hidden flex-col w-16 h-screen sticky top-0 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 shrink-0 z-30">
+      <aside className="hidden md:flex lg:hidden flex-col w-16 h-screen sticky top-0 bg-(--card)/95 backdrop-blur-xl border-r border-(--card-border) shrink-0 z-30">
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-center px-2 py-6 border-b border-white/10">
             <div className="w-9 h-9 rounded-xl bg-linear-to-br from-violet-500 to-purple-700 flex items-center justify-center">
@@ -143,17 +157,18 @@ export default function Sidebar() {
               );
             })}
           </nav>
-          <div className="px-2 py-4 border-t border-white/10 space-y-1">
+          <div className="px-2 py-4 border-t border-white/10 space-y-1 text-foreground ">
             <button
               onClick={toggleRole}
               title={`Role: ${role}`}
-              className="w-full flex items-center justify-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all"
+              className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all"
             >
               {role === "Admin" ? (
                 <Shield className="w-4 h-4 text-violet-400" />
               ) : (
                 <Eye className="w-4 h-4 text-slate-400" />
               )}
+              <span className="text-sm font-semibold">{role}</span>
             </button>
             <button
               onClick={toggleTheme}
@@ -174,7 +189,7 @@ export default function Sidebar() {
       <div className="md:hidden">
         <button
           onClick={() => setMobileOpen(true)}
-          className="fixed top-4 left-4 z-50 p-2.5 rounded-xl bg-slate-900/90 backdrop-blur-sm border border-white/10 text-white"
+          className="fixed top-4 left-4 z-50 p-2.5 rounded-xl bg-(--card)/90 backdrop-blur-sm border border-(--card-border) text-foreground"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -190,7 +205,7 @@ export default function Sidebar() {
         {/* Drawer */}
         <aside
           className={cn(
-            "fixed left-0 top-0 h-full w-72 z-50 bg-slate-900 border-r border-white/10 transition-transform duration-300",
+            "fixed left-0 top-0 h-full w-72 z-50 bg-card border-r border-(--card-border) transition-transform duration-300",
             mobileOpen ? "translate-x-0" : "-translate-x-full"
           )}
         >

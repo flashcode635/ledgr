@@ -54,9 +54,9 @@ function TransactionRow({ transaction: tx, isAdmin }: TransactionRowProps) {
               )}
             </div>
             <div>
-              <p className="text-sm font-medium text-white leading-tight">{tx.title}</p>
+              <p className="text-sm font-medium text-foreground leading-tight">{tx.title}</p>
               {tx.note && (
-                <p className="text-xs text-slate-500 mt-0.5 truncate max-w-48">{tx.note}</p>
+                <p className="text-xs text-muted-fg mt-0.5 truncate max-w-48">{tx.note}</p>
               )}
             </div>
           </div>
@@ -84,7 +84,7 @@ function TransactionRow({ transaction: tx, isAdmin }: TransactionRowProps) {
           <span
             className={cn(
               "text-sm font-semibold",
-              isIncome ? "text-emerald-400" : "text-slate-200"
+              isIncome ? "text-emerald-400" : "text-foreground"
             )}
           >
             {isIncome ? "+" : "-"}
@@ -111,7 +111,7 @@ function TransactionRow({ transaction: tx, isAdmin }: TransactionRowProps) {
                   <div className="absolute right-0 top-full mt-1 z-20 min-w-36 bg-slate-800 border border-white/10 rounded-xl shadow-xl overflow-hidden">
                     <button
                       onClick={() => { setEditOpen(true); setMenuOpen(false); }}
-                      className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-slate-300 hover:text-white hover:bg-white/8 transition-colors"
+                      className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-muted-fg hover:text-foreground hover:bg-white/8 transition-colors"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                       Edit
@@ -165,16 +165,16 @@ export default function TransactionTable({ transactions }: TransactionTableProps
       <table className="w-full">
         <thead>
           <tr className="border-b border-white/8">
-            <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <th className="px-5 py-3 text-left text-xs font-semibold text-muted-fg uppercase tracking-wider">
               Transaction
             </th>
-            <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider hidden md:table-cell">
+            <th className="px-5 py-3 text-left text-xs font-semibold text-muted-fg uppercase tracking-wider hidden md:table-cell">
               Category
             </th>
-            <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider hidden sm:table-cell">
+            <th className="px-5 py-3 text-left text-xs font-semibold text-muted-fg uppercase tracking-wider hidden sm:table-cell">
               Date
             </th>
-            <th className="px-5 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <th className="px-5 py-3 text-right text-xs font-semibold text-muted-fg uppercase tracking-wider">
               Amount
             </th>
             {isAdmin && (

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { inter, sourceSerif, ibmPlexMono } from '@/fonts/font'
-import "./globals.css";
+import "../globals.css";
+import AppShell from "@/components/layout/AppShell";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${inter.variable} ${sourceSerif.variable} ${ibmPlexMono.variable}`}
     >
       <body>
-        {children}
+        <AppShell>
+
+                 {children}
+        </AppShell>
       </body>
     </html>
   )

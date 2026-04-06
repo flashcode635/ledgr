@@ -41,7 +41,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 export default function IncomeExpenseChart({ data }: IncomeExpenseChartProps) {
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" aspect={3}>
       <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 0 }} barGap={4}>
         <defs>
           <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">

@@ -2,29 +2,36 @@
 
 @layer base {
   :root {
-    --background: #0a0b14;
-    --foreground: #e2e8f0;
-    --card: #0f1120;
+    --background: #020205;
+    --foreground: #ffefef;
+    --frg-hover:#0e0b1adf;
+
+    --card: #040306;
     --card-border: rgba(255,255,255,0.08);
     --primary: #7c3aed;
     --primary-light: #8b5cf6;
-    --muted: #1e2235;
+    --muted: #0f0e1458;
     --muted-fg: #64748b;
     --success: #10b981;
     --danger: #ef4444;
     --warning: #f59e0b;
+    --option: #00010980;
+    --income-text : #C4B5FD;
     --font-sans: 'Inter', system-ui, sans-serif;
   }
 
   [data-theme="light"] {
     --background: #f5f6fa;
-    --foreground: #1e293b;
+    --foreground: #231e3b;
+    --frg-hover: #eaeafa;
     --card: #ffffff;
-    --card-border: rgba(0,0,0,0.08);
+    --card-border: rgba(0, 0, 0, 0.185);
     --primary: #7c3aed;
     --primary-light: #8b5cf6;
     --muted: #f1f5f9;
     --muted-fg: #94a3b8;
+    --option: #d2d5fa8b;
+     --income-text :#6D28D9;
   }
 
   *, *::before, *::after {
@@ -78,6 +85,27 @@
 [data-theme="light"] .glass {
   background: rgba(255,255,255,0.8);
   border: 1px solid rgba(0,0,0,0.08);
+}
+
+.surface {
+  background-color: var(--card);
+  border-color: var(--card-border);
+}
+
+.surface-muted {
+  background-color: var(--muted);
+}
+
+.surface-text {
+  color: var(--foreground);
+}
+
+[data-theme="light"] .surface .text-white {
+  color: var(--foreground);
+}
+
+[data-theme="light"] .surface .text-slate-400 {
+  color: var(--muted-fg) !important;
 }
 
 /* Glow effects */

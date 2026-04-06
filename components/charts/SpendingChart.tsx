@@ -30,7 +30,7 @@ export default function SpendingChart({ data }: SpendingChartProps) {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height="110%">
+      <ResponsiveContainer width="100%" aspect={1.3}>
         <PieChart>
           <Pie
             data={chartData}

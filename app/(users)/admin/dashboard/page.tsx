@@ -21,17 +21,16 @@ import {
   getMonthlyData,
   getCategoryBreakdown,
   formatCurrency,
-  getMonthKey,
 } from "@/lib/utils";
 import StatCard from "@/components/ui/StatCard";
 import IncomeExpenseChart from "@/components/charts/IncomeExpenseChart";
-import SpendingChart from "@/components/charts/SpendingChart";
+import HorizontalChart from "@/components/charts/horizontalChart";
 import BalanceChart from "@/components/charts/BalanceChart";
 import TransactionTable from "@/components/transactions/TransactionTable";
 import FiltersBar from "@/components/transactions/FiltersBar";
 import TransactionModal from "@/components/transactions/TransactionModal";
 
-export default function AdminPage() {
+export default function AdminDashboardPage() {
   const { transactions, filters, role } = useStore();
   const [addOpen, setAddOpen] = useState(false);
 
@@ -45,7 +44,6 @@ export default function AdminPage() {
   const totalIncome = calcIncome(transactions);
   const totalExpenses = calcExpenses(transactions);
 
-  // MoM stats
   const monthKeys = monthly.map((m) => m.month);
   const curMonth = monthKeys[monthKeys.length - 1] ?? "";
   const prevMonth = monthKeys[monthKeys.length - 2] ?? "";
@@ -58,7 +56,6 @@ export default function AdminPage() {
   const incomePct = prevIncome ? ((curIncome - prevIncome) / prevIncome) * 100 : 0;
   const expensePct = prevExpenses ? ((curExpenses - prevExpenses) / prevExpenses) * 100 : 0;
 
-  // Filtered transactions
   const filtered = useMemo(() => {
     let txs = [...transactions];
     if (filters.type !== "all") txs = txs.filter((t) => t.type === filters.type);
@@ -82,7 +79,6 @@ export default function AdminPage() {
     return txs;
   }, [transactions, filters]);
 
-  // CSV export of filtered transactions
   function exportCSV() {
     const header = "ID,Title,Type,Category,Amount,Date,Note";
     const rows = filtered.map(
@@ -98,31 +94,27 @@ export default function AdminPage() {
     URL.revokeObjectURL(url);
   }
 
-  // Health alerts
   const highestExpense = categoryBreakdown[0];
   const savingsRate =
-    totalIncome > 0
-      ? ((totalIncome - totalExpenses) / totalIncome) * 100
-      : 0;
+    totalIncome > 0 ? ((totalIncome - totalExpenses) / totalIncome) * 100 : 0;
   const avgMonthlyExpense =
     monthly.length > 0
       ? monthly.reduce((s, m) => s + m.expense, 0) / monthly.length
       : 0;
 
   const isAdmin = role === "Admin";
+  const rowGap = "gap-5";
 
   return (
-    <div className="space-y-5 max-w-7xl px-20 pt-10">
-
-      {/* ── Admin Banner ────────────────────────────────────── */}
+    <div className="space-y-5 max-w-7xl px-6 py-6 bg-background">
       <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-4 rounded-2xl bg-linear-to-r from-violet-600/20 to-purple-900/10 border border-violet-500/25">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-violet-500/20 flex items-center justify-center">
             <Shield className="w-5 h-5 text-violet-400" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-white">Admin Control Panel</p>
-            <p className="text-xs text-slate-400">
+            <p className="text-sm font-semibold text-foreground">Admin Control Panel</p>
+            <p className="text-xs text-muted-fg">
               Full access · {transactions.length} total transactions
             </p>
           </div>
@@ -147,8 +139,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* ── KPI Cards ───────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ${rowGap}`}>
         <StatCard
           title="Net Balance"
           value={totalBalance}
@@ -184,42 +175,45 @@ export default function AdminPage() {
         />
       </div>
 
-      {/* ── Charts Row ──────────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-        <div className="lg:col-span-3 rounded-2xl bg-slate-900/60 border border-white/8 p-5">
-          <h3 className="text-base font-semibold text-white mb-1">Income vs Expenses</h3>
-          <p className="text-xs text-slate-500 mb-5">Monthly comparison</p>
-          <div className="h-56">
+      <div className={`grid grid-cols-1 lg:grid-cols-5 ${rowGap}`}>
+        <div className="lg:col-span-3 rounded-2xl surface border border-(--card-border) p-4">
+          <h3 className="text-base font-semibold text-foreground mb-1">Income vs Expenses</h3>
+          <p className="text-xs text-muted-fg mb-5">Monthly comparison</p>
+          <div className="h-56 min-h-50 w-full">
             <IncomeExpenseChart data={monthly} />
           </div>
         </div>
 
-        <div className="lg:col-span-2 rounded-2xl bg-slate-900/60 border border-white/8 p-5">
-          <h3 className="text-base font-semibold text-white mb-1">Expense Breakdown</h3>
-          <p className="text-xs text-slate-500 mb-5">By category</p>
-          <div className="h-56">
-            <SpendingChart data={categoryBreakdown} />
+        <div className="lg:col-span-2 rounded-2xl surface border border-(--card-border) p-4">
+          <h3 className="text-base font-semibold text-foreground mb-1">Expense Breakdown</h3>
+          <p className="text-xs text-muted-fg mb-2">By category</p>
+          <div className="h-59 w-full">
+            <HorizontalChart data={categoryBreakdown} />
           </div>
         </div>
       </div>
 
-      {/* ── Balance Trend + Health Indicators ──────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-        <div className="lg:col-span-3 rounded-2xl bg-slate-900/60 border border-white/8 p-5">
-          <h3 className="text-base font-semibold text-white mb-1">Balance Trend</h3>
-          <p className="text-xs text-slate-500 mb-5">Cumulative net over time</p>
-          <div className="h-48">
+      <div className="grid grid-cols-4 items-center">
+        <div className="lg:col-span-3 rounded-2xl surface border border-(--card-border) p-4">
+          <div className="flex items-center justify-between mb-0">
+            <div>
+              <h3 className="text-base font-semibold text-foreground">Balance Trend</h3>
+              <p className="text-xs text-muted-fg mt-0.5">Running balance over time</p>
+            </div>
+          </div>
+          <div className="h-50 min-h-40 w-full">
             <BalanceChart data={monthly} />
           </div>
         </div>
+      </div>
 
-        <div className="lg:col-span-2 rounded-2xl bg-slate-900/60 border border-white/8 p-5">
+      <div className={`grid grid-cols-1 ${rowGap}`}>
+        <div className="lg:col-span-3 rounded-2xl surface border border-(--card-border) p-5">
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-4 h-4 text-violet-400" />
-            <h3 className="text-base font-semibold text-white">Financial Health</h3>
+            <h3 className="text-base font-semibold text-foreground">Financial Health</h3>
           </div>
-          <div className="space-y-3">
-            {/* Savings rate */}
+          <div className="grid grid-cols-4 gap-6">
             <HealthItem
               icon={
                 savingsRate > 20 ? (
@@ -233,7 +227,6 @@ export default function AdminPage() {
               status={savingsRate > 20 ? "good" : "warn"}
               hint={savingsRate > 20 ? "Healthy savings" : "Below 20% target"}
             />
-            {/* Top expense category */}
             {highestExpense && (
               <HealthItem
                 icon={<AlertTriangle className="w-4 h-4 text-pink-400" />}
@@ -243,7 +236,6 @@ export default function AdminPage() {
                 hint={formatCurrency(highestExpense.total) + " total"}
               />
             )}
-            {/* Avg monthly expense */}
             <HealthItem
               icon={<Activity className="w-4 h-4 text-blue-400" />}
               label="Avg Monthly Expense"
@@ -251,7 +243,6 @@ export default function AdminPage() {
               status="info"
               hint={`Over ${monthly.length} months`}
             />
-            {/* Total transactions */}
             <HealthItem
               icon={<CheckCircle2 className="w-4 h-4 text-violet-400" />}
               label="Total Transactions"
@@ -263,19 +254,18 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* ── Transactions Management ─────────────────────────── */}
-      <div className="rounded-2xl bg-slate-900/60 border border-white/8 p-5">
+      <div className="rounded-2xl surface border border-(--card-border) p-5">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div>
-            <h3 className="text-base font-semibold text-white">All Transactions</h3>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <h3 className="text-base font-semibold text-foreground">All Transactions</h3>
+            <p className="text-xs text-muted-fg mt-0.5">
               {filtered.length} of {transactions.length} shown
             </p>
           </div>
           {isAdmin && (
             <button
               onClick={() => setAddOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-white bg-violet-600 hover:bg-violet-500 transition-all shadow-lg shadow-violet-600/20"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-100 bg-violet-600 hover:bg-violet-500 transition-all shadow-lg shadow-violet-600/20"
             >
               <Plus className="w-4 h-4" />
               Add New
@@ -290,13 +280,11 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Add Transaction Modal */}
       <TransactionModal open={addOpen} onClose={() => setAddOpen(false)} />
     </div>
   );
 }
 
-/* ── Health Item sub-component ──────────────────────────── */
 function HealthItem({
   icon,
   label,
@@ -311,12 +299,12 @@ function HealthItem({
   hint?: string;
 }) {
   return (
-    <div className="flex items-start gap-3 p-3 rounded-xl bg-white/4 hover:bg-white/6 transition-colors">
+    <div className="flex items-start gap-3 p-3 shadow-md rounded-xl bg-muted hover:bg-(--muted)/90 transition-colors">
       <div className="mt-0.5 shrink-0">{icon}</div>
       <div className="flex-1 min-w-0">
-        <p className="text-xs text-slate-400">{label}</p>
-        <p className="text-sm font-semibold text-white mt-0.5">{value}</p>
-        {hint && <p className="text-xs text-slate-500 mt-0.5">{hint}</p>}
+        <p className="text-xs text-muted-fg">{label}</p>
+        <p className="text-sm font-semibold text-foreground mt-0.5">{value}</p>
+        {hint && <p className="text-xs text-muted-fg mt-0.5">{hint}</p>}
       </div>
     </div>
   );

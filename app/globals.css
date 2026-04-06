@@ -2,10 +2,11 @@
 
 @layer base {
   :root {
+    --cream: #fffdfc;
+
     --background: #020205;
     --foreground: #ffefef;
     --frg-hover:#0e0b1adf;
-
     --card: #040306;
     --card-border: rgba(255,255,255,0.08);
     --primary: #7c3aed;
@@ -76,7 +77,12 @@
   }
 }
 
+@theme{
+  --color-cream: var(--cream);
+}
+
 @theme inline {
+  
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
   --color-background: var(--background);

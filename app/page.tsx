@@ -15,6 +15,7 @@ import {
   Layers,
   BookOpen,
 } from "lucide-react";
+import { Button } from "@/components/ui/buttons";
 import { useEffect, useRef, useState } from "react";
 
 /* ──────────────────────────────────────────────
@@ -113,11 +114,10 @@ export default function Home() {
             >
               Sign in
             </Link>
-            <Link
-              href="/admin/dashboard"
-              className="text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 px-5 py-2.5 rounded-lg transition-all duration-200 shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/30"
-            >
-              Get Started
+            <Link href="/admin/dashboard">
+              <Button variant="solid" size="md">
+                Get Started
+              </Button>
             </Link>
           </div>
 
@@ -153,7 +153,9 @@ export default function Home() {
             ))}
             <div className="pt-2 border-t border-slate-100 flex gap-3">
               <Link href="/user/dashboard" className="flex-1 text-center text-sm font-medium py-2.5 text-slate-600 border border-slate-200 rounded-lg hover:border-violet-300 transition-colors">Sign in</Link>
-              <Link href="/admin/dashboard" className="flex-1 text-center text-sm font-semibold py-2.5 text-white bg-linear-to-r from-violet-600 to-purple-600 rounded-lg">Get Started</Link>
+              <Link href="/admin/dashboard" className="flex-1">
+                <Button layout="full" variant="solid" className="py-2.5 justify-center">Get Started</Button>
+              </Link>
             </div>
           </div>
         )}
@@ -189,19 +191,17 @@ export default function Home() {
                 your financial legacy.
               </p>
               <div className="flex flex-wrap items-center gap-4">
-                <Link
-                  href="/admin/dashboard"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-white bg-linear-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 px-7 py-3.5 rounded-lg transition-all duration-200 shadow-lg shadow-violet-500/25 hover:shadow-xl hover:shadow-violet-500/30"
-                >
-                  Explore the Interface
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <Link href="/admin/dashboard">
+                  <Button variant="solid" size="lg" className="group">
+                    Explore Admin Dashboard
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Button>
                 </Link>
-                <Link
-                  href="/user/dashboard"
-                  className="group inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-violet-600 px-2 py-3.5 transition-colors"
-                >
-                  Request Access
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                <Link href="/user/dashboard">
+                  <Button variant="ghost" size="lg" className="group text-slate-700 hover:text-violet-600 border-2 border-slate-300 bg-transparent hover:bg-transparent px-2">
+                    User Dashboard
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -429,17 +429,15 @@ export default function Home() {
                 excellence.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link
-                  href="/admin/dashboard"
-                  className="inline-flex items-center gap-2 text-sm font-semibold bg-white text-violet-700 hover:bg-slate-50 px-7 py-3.5 rounded-lg transition-all duration-200 shadow-lg shadow-black/10"
-                >
-                  Admin Login
+                <Link href="/admin/dashboard">
+                  <Button variant="solid" size="lg" className="bg-white text-violet-700 hover:bg-slate-50 shadow-black/10 border-none hover:text-violet-800">
+                    Admin Login
+                  </Button>
                 </Link>
-                <Link
-                  href="/user/dashboard"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-white border border-white/30 hover:border-white/60 hover:bg-white/10 px-7 py-3.5 rounded-lg transition-all duration-200"
-                >
-                  User Login
+                <Link href="/user/dashboard">
+                  <Button variant="outline" size="lg" className="text-white border-white/30 hover:border-white/60 hover:bg-white/10 bg-transparent">
+                    User Login
+                  </Button>
                 </Link>
               </div>
             </div>

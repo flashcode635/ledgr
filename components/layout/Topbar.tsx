@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Bell, User, Shield, Eye, Sun, Moon } from "lucide-react";
 import { useStore } from "@/store/useStore";
+import { Button } from "@/components/ui/buttons";
 
 export default function Topbar() {
   const pathname = usePathname();
@@ -51,7 +52,7 @@ export default function Topbar() {
         </div>
 
         {/* Theme switch */}
-        <button
+        {/* <button
           onClick={toggleTheme}
           title="Toggle theme"
           className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all"
@@ -61,13 +62,36 @@ export default function Topbar() {
           ) : (
             <Moon className="w-4.5 h-4.5" />
           )}
-        </button>
+        </button> */}
+        <Button
+          onClick={toggleTheme}
+          variant="ghost"
+          size="icon"
+          layout="default"
+          title="Toggle theme"
+          className="relative text-slate-400 hover:text-white flex items-center justify-center"
+        >
+          {theme === "dark" ? (
+            <Sun className="w-4.5 h-4.5" />
+          ) : (
+            <Moon className="w-4.5 h-4.5" />
+          )}
+        </Button>
 
         {/* Notification bell */}
-        <button className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all">
+        {/* <button className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all">
           <Bell className="w-4.5 h-4.5" />
           <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-violet-500" />
-        </button>
+        </button> */}
+        <Button
+          variant="ghost"
+          size="icon"
+          layout="default"
+          className="relative text-slate-400 hover:text-white flex items-center justify-center"
+        >
+          <Bell className="w-4.5 h-4.5" />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-violet-500" />
+        </Button>
 
         {/* Avatar */}
         <div className="w-9 h-9 rounded-xl bg-linear-to-br from-violet-500 to-purple-700 flex items-center justify-center shadow-lg shadow-violet-500/20 cursor-pointer">

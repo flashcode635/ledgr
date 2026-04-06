@@ -20,7 +20,8 @@ import StatCard from "@/components/ui/StatCard";
 import IncomeExpenseChart from "@/components/charts/IncomeExpenseChart";
 import HorizontalChart from "@/components/charts/horizontalChart";
 import BalanceChart from "@/components/charts/BalanceChart";
-
+import "@/app/globals.css";
+import BalanceTrend from "@/components/charts/balanceTrend";
 export default function AdminInsightsPage() {
   const { transactions } = useStore();
 
@@ -49,7 +50,7 @@ export default function AdminInsightsPage() {
   const savingsRate = totalIncome > 0 ? ((totalIncome - totalExpenses) / totalIncome) * 100 : 0;
 
   return (
-    <div className="space-y-6 max-w-7xl px-6 py-6 bg-background">
+    <div id="hide-scrollbar" className=" space-y-6 max-w-7xl px-6 py-6 bg-background">
       <div className="rounded-2xl border border-(--card-border) bg-card p-5">
         <div className="flex items-center gap-3">
           <div className="w-11 h-11 rounded-2xl bg-violet-500/10 flex items-center justify-center">
@@ -96,18 +97,13 @@ export default function AdminInsightsPage() {
         </div>
         <div className="lg:col-span-2 rounded-2xl border border-(--card-border) bg-card p-5">
           <h3 className="text-base font-semibold text-foreground mb-3">Expense Breakdown</h3>
-          <div className="h-56 w-full">
+          <div className="h-56 w-full overflow-hidden">
             <HorizontalChart data={categoryBreakdown} />
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-(--card-border) bg-card p-5">
-        <h3 className="text-base font-semibold text-foreground mb-3">Balance Trend</h3>
-        <div className="h-56 w-full">
-          <BalanceChart data={monthly} />
-        </div>
-      </div>
+      <BalanceTrend monthly={monthly} />
     </div>
   );
 }

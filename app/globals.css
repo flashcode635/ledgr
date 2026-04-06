@@ -59,6 +59,21 @@
 
   /* Selection */
   ::selection { background: rgba(139,92,246,0.3); color: white; }
+
+  /* Hide scrollbars on chart containers */
+  .recharts-surface {
+    overflow: visible !important;
+  }
+
+  /* Hide scrollbars globally */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @theme inline {
@@ -124,4 +139,17 @@
 /* Table rows */
 .table-row-hover:hover {
   background: rgba(139,92,246,0.05);
+}
+
+#insightContainer {
+  /* For Firefox */
+  scrollbar-width: none;
+  
+  /* For Internet Explorer and older Edge */
+  -ms-overflow-style: none;
+}
+
+/* For Chrome, Safari, and newer Edge (WebKit/Blink) */
+#insightContainer::-webkit-scrollbar {
+  display: none;
 }

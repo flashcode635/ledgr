@@ -29,6 +29,7 @@ import BalanceChart from "@/components/charts/BalanceChart";
 import TransactionTable from "@/components/transactions/TransactionTable";
 import FiltersBar from "@/components/transactions/FiltersBar";
 import TransactionModal from "@/components/transactions/TransactionModal";
+import BalanceTrend from "@/components/charts/balanceTrend";
 
 export default function AdminDashboardPage() {
   const { transactions, filters, role } = useStore();
@@ -193,19 +194,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 items-center">
-        <div className="lg:col-span-3 rounded-2xl surface border border-(--card-border) p-4">
-          <div className="flex items-center justify-between mb-0">
-            <div>
-              <h3 className="text-base font-semibold text-foreground">Balance Trend</h3>
-              <p className="text-xs text-muted-fg mt-0.5">Running balance over time</p>
-            </div>
-          </div>
-          <div className="h-50 min-h-40 w-full">
-            <BalanceChart data={monthly} />
-          </div>
-        </div>
-      </div>
+      <BalanceTrend monthly={monthly} />
 
       <div className={`grid grid-cols-1 ${rowGap}`}>
         <div className="lg:col-span-3 rounded-2xl surface border border-(--card-border) p-5">

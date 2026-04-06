@@ -222,7 +222,7 @@ export default function TransactionModal({
             type="submit"
             className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
              bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold 
-             transition-all             duration-200 shadow-lg shadow-violet-600/25 hover:shadow-violet-500/40 active:scale-95"
+             transition-all duration-200 shadow-lg shadow-violet-600/25 hover:shadow-violet-500/40 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             {isEditing ? "Save Changes" : "Add Transaction"}

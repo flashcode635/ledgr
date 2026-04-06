@@ -19,6 +19,7 @@ import { useStore } from "@/store/useStore";
 import { cn } from "@/lib/utils";
 import image from "@/public/logo.png";
 import Image from "next/image";
+import { Button } from "@/components/ui/buttons";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -87,7 +88,7 @@ export default function Sidebar() {
       {/* Controls */}
       <div className="px-3 py-5 border-t border-white/10 space-y-2 bg-background">
         {/* Role switcher */}
-        <button
+        {/* <button
           onClick={toggleRole}
           className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-200 group"
         >
@@ -102,10 +103,29 @@ export default function Sidebar() {
           <span className="text-xs text-slate-500 group-hover:text-slate-400 transition-colors">
             Switch
           </span>
-        </button>
+        </button> */}
+        <Button
+          onClick={toggleRole}
+          variant="ghost"
+          size="md"
+          layout="full"
+          className="flex items-center justify-between"
+        >
+          <div className="flex items-center gap-3">
+            {role === "Admin" ? (
+              <Shield className="w-4 h-4 text-violet-400" />
+            ) : (
+              <Eye className="w-4 h-4 text-slate-400" />
+            )}
+            <span className="text-sm font-bold text-foreground">{role}</span>
+          </div>
+          <span className="text-xs text-slate-500 group-hover:text-slate-400 transition-colors">
+            Switch
+          </span>
+        </Button>
 
         {/* Theme toggle */}
-        <button
+        {/* <button
           onClick={toggleTheme}
           className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-200"
         >
@@ -117,7 +137,22 @@ export default function Sidebar() {
           <span className="text-sm font-bold text-foreground">
             {theme === "dark" ? "Light Mode" : "Dark Mode"}
           </span>
-        </button>
+        </button> */}
+        <Button
+          onClick={toggleTheme}
+          variant="ghost"
+          size="md"
+          layout="full"
+        >
+          {theme === "dark" ? (
+            <Sun className="w-4 h-4 text-amber-400" />
+          ) : (
+            <Moon className="w-4 h-4 text-slate-400" />
+          )}
+          <span className="text-sm font-bold text-foreground">
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
+          </span>
+        </Button>
       </div>
     </div>
   );
@@ -158,7 +193,7 @@ export default function Sidebar() {
             })}
           </nav>
           <div className="px-2 py-4 border-t border-white/10 space-y-1 text-foreground ">
-            <button
+            {/* <button
               onClick={toggleRole}
               title={`Role: ${role}`}
               className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all"
@@ -169,8 +204,23 @@ export default function Sidebar() {
                 <Eye className="w-4 h-4 text-slate-400" />
               )}
               <span className="text-sm font-semibold">{role}</span>
-            </button>
-            <button
+            </button> */}
+            <Button
+              onClick={toggleRole}
+              variant="ghost"
+              size="md"
+              layout="full"
+              title={`Role: ${role}`}
+              className="flex items-center justify-center gap-2"
+            >
+              {role === "Admin" ? (
+                <Shield className="w-4 h-4 text-violet-400" />
+              ) : (
+                <Eye className="w-4 h-4 text-slate-400" />
+              )}
+              <span className="text-sm font-semibold">{role}</span>
+            </Button>
+            {/* <button
               onClick={toggleTheme}
               title="Toggle Theme"
               className="w-full flex items-center justify-center p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all"
@@ -180,19 +230,42 @@ export default function Sidebar() {
               ) : (
                 <Moon className="w-4 h-4 text-slate-400" />
               )}
-            </button>
+            </button> */}
+            <Button
+              onClick={toggleTheme}
+              variant="ghost"
+              size="md"
+              layout="full"
+              title="Toggle Theme"
+              className="flex items-center justify-center"
+            >
+              {theme === "dark" ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-400" />
+              )}
+            </Button>
           </div>
         </div>
       </aside>
 
       {/* Mobile hamburger */}
       <div className="md:hidden">
-        <button
+        {/* <button
           onClick={() => setMobileOpen(true)}
           className="fixed top-4 left-4 z-50 p-2.5 rounded-xl bg-(--card)/90 backdrop-blur-sm border border-(--card-border) text-foreground"
         >
           <Menu className="w-5 h-5" />
-        </button>
+        </button> */}
+        <Button
+          onClick={() => setMobileOpen(true)}
+          variant="ghost"
+          size="icon"
+          layout="default"
+          className="fixed top-4 left-4 z-50 bg-(--card)/90 backdrop-blur-sm border border-(--card-border) text-foreground"
+        >
+          <Menu className="w-5 h-5" />
+        </Button>
 
         {/* Overlay */}
         {mobileOpen && (

@@ -75,14 +75,14 @@ export default function UserInsightsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
         <div className="lg:col-span-3 rounded-2xl border border-(--card-border) bg-card p-5">
           <h3 className="text-base font-semibold text-foreground mb-3">Balance Trend</h3>
-          <div className="h-56 w-full">
+          <div className="h-56 w-full overflow-hidden">
             <BalanceChart data={monthly} />
           </div>
         </div>
 
         <div className="lg:col-span-2 rounded-2xl border border-(--card-border) bg-card p-5">
           <h3 className="text-base font-semibold text-foreground mb-3">Spending Breakdown</h3>
-          <div className="h-56 w-full">
+          <div className="h-56 w-full overflow-hidden">
             <SpendingChart data={categoryBreakdown} />
           </div>
         </div>
